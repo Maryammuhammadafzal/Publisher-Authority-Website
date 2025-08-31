@@ -3,6 +3,7 @@ import HeroPage from "./hero/page.tsx";
 import FeaturesPage from "./features/page.tsx";
 import AboutPage from "./about/page.tsx";
 import HowItWorkPage from "./how-it-work/page.tsx";
+import TestimonialPage from "./testimonial/page.tsx";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <AboutPage />
       <FeaturesPage />
       <HowItWorkPage/>
+      <TestimonialPage/>
     </div>
   );
 }
