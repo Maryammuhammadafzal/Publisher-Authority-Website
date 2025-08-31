@@ -158,12 +158,12 @@
   position: absolute;
   top: 0;
   left: 30%;
-  filter: blur(70);
+  filter: blur(130);
   border-radius: 100%;
-  width: 50%;
+  width: 40%;
   height: 90%;
   z-index: -10;
-  background: radial-gradient(circle , rgba(193, 243, 193, 0.668))
+  background: radial-gradient(circle , rgba(218, 248, 208, 0.86))
 }
 
 @layer utilities {
