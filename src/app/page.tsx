@@ -1,10 +1,10 @@
-import Image from "next/image";
-import HeroPage from "./hero/page.tsx";
-import FeaturesPage from "./features/page.tsx";
-import AboutPage from "./about/page.tsx";
-import HowItWorkPage from "./how-it-work/page.tsx";
-import TestimonialPage from "./testimonial/page.tsx";
-import FAQPage from "./faq/page.tsx";
+
+import HeroPage from "./hero/page";
+import FeaturesPage from "./features/page";
+import AboutPage from "./about/page";
+import HowItWorkPage from "./how-it-work/page";
+import TestimonialPage from "./testimonial/page";
+import FAQPage from "./faq/page";
 
 export default function Home() {
   return (
