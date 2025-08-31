@@ -52,7 +52,7 @@ const TestimonialPage = () => {
                     {TestimonialData.map((testimonial, index) => (
                         <div key={index} className='w-[350px] h-[300px] p-10 border-[1px] border-neutral-300 flex flex-col justify-between gap-4'>
                             <p className='text-lg italic'>
-                                "{testimonial.review}"
+                                {"${testimonial.review}"}
                             </p>
                             <div className='flex gap-3 items-center'>
                                 <Image src={testimonial.image} alt={testimonial.name} width={60} height={60} className='rounded-full' />
