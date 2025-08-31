@@ -4,6 +4,7 @@ import FeaturesPage from "./features/page.tsx";
 import AboutPage from "./about/page.tsx";
 import HowItWorkPage from "./how-it-work/page.tsx";
 import TestimonialPage from "./testimonial/page.tsx";
+import FAQPage from "./faq/page.tsx";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <FeaturesPage />
       <HowItWorkPage/>
       <TestimonialPage/>
+      <FAQPage/>
     </div>
   );
 }
