@@ -1,3 +1,4 @@
+
 import Image from 'next/image'
 import React from 'react'
 
@@ -51,9 +52,9 @@ const TestimonialPage = () => {
                 <div className='grid grid-cols-3 w-auto h-auto justify-center items-center'>
                     {TestimonialData.map((testimonial, index) => (
                         <div key={index} className='w-[350px] h-[300px] p-10 border-[1px] border-neutral-300 flex flex-col justify-between gap-4'>
-                            <p className='text-lg italic'>
-                                {"${testimonial.review}"}
-                            </p>
+                            <q className='text-lg italic '>
+                               {testimonial.review}
+                            </q>
                             <div className='flex gap-3 items-center'>
                                 <Image src={testimonial.image} alt={testimonial.name} width={60} height={60} className='rounded-full' />
                                 <div className='flex flex-col'>
