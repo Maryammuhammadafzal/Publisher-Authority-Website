@@ -20,20 +20,24 @@ const LoginPage = () => {
         password: ''
     })
 
-    const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: formData.email,
-      password: formData.password,
-    });
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+        // const result = await signIn('credentials', {
+        //     redirect: false,
+        //     email: formData.email,
+        //     password: formData.password,
+        // });
 
-    if (result?.error) {
-      setError(result?.error);
-    } else {
-      window.location.href = '/dashboard'; // Redirect on success
-    }
-  };
+        // if (result?.error) {
+        //     setError(result?.error);
+        // } else {
+        //     window.location.href = '/dashboard'; // Redirect on success
+        // }
+
+        if (formData.email && formData.password) {
+            window.location.href = '/dashboard';
+        }
+    };
 
     return (
         <div className='w-full min-h-screen flex justify-center bg-primary/10'>
@@ -54,8 +58,9 @@ const LoginPage = () => {
 
                 {/* Right */}
                 <div className='right flex md:w-1/2 md:py-14 py-7 flex-col gap-3 px-5 h-auto justify-center items-center'>
+                    {error && <p style={{ color: 'red' }}>{error}</p>}
                     <div className='w-full h-auto bg-secondary p-6 rounded-3xl'>
-                        <form action="" className='w-full h-auto flex flex-col items-center gap-6'>
+                        <form onSubmit={handleSubmit} className='w-full h-auto flex flex-col items-center gap-6'>
                             {/* Google Button */}
                             <Button className='w-full flex justify-center gap-3 items-center text-center text-primary bg-white hover:bg-secondary shadow-sm border border-primary/10'>
                                 Sign in With Google
@@ -67,11 +72,11 @@ const LoginPage = () => {
 
                                 <div className="grid w-full items-center gap-3 my-4">
                                     <Label htmlFor="email">Email <address></address></Label>
-                                    <Input type="email" id="email" placeholder="example123@gmail.com" className='bg-white h-10 shadow-sm' />
+                                    <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} id="email" placeholder="example123@gmail.com" className='bg-white h-10 shadow-sm' />
                                 </div>
                                 <div className="grid w-full  items-center gap-3">
                                     <Label htmlFor="password">Password</Label>
-                                    <Input type="password" id="password" placeholder="********" className='bg-white h-10 shadow-sm' />
+                                    <Input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} id="password" placeholder="********" className='bg-white h-10 shadow-sm' />
                                 </div>
                                 <div className='w-full px-5 text-sm'>
                                     <Link href='/forget-password' className='text-primary/70'>Forget Password?</Link>
