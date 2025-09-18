@@ -8,16 +8,18 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { signIn } from 'next-auth/react';
 
-interface LoginForm {
+interface SignupForm {
     email: string;
     password: string;
+    name: string;
 }
 
-const LoginPage = () => {
+const SignupPage = () => {
     const [error, setError] = useState<null | string>(null);
-    const [formData, setFormData] = useState<LoginForm>({
+    const [formData, setFormData] = useState<SignupForm>({
         email: '',
-        password: ''
+        password: '',
+        name: ''
     })
 
     const handleSubmit = async (e: any) => {
@@ -34,7 +36,7 @@ const LoginPage = () => {
         //     window.location.href = '/dashboard'; // Redirect on success
         // }
 
-        if (formData.email && formData.password) {
+        if (formData.name && formData.email && formData.password) {
             window.location.href = '/dashboard';
         }
     };
@@ -50,7 +52,7 @@ const LoginPage = () => {
                     </div>
                     <div className='space-y-4 max-w-md'>
                         <h1 className='sm:text-3xl text-2xl font-semibold'>
-                            Sign in to Publisher Authority
+                            Sign up to Publisher Authority
                         </h1>
                         <p className='text-primary/70'>We collect awesome websites to help creatives find inspiration & motivation to do rad stuff.</p>
                     </div>
@@ -63,37 +65,41 @@ const LoginPage = () => {
                         <form onSubmit={handleSubmit} className='w-full h-auto flex flex-col items-center gap-6'>
                             {/* Google Button */}
                             <Button className='w-full flex justify-center gap-3 items-center text-center h-10 text-primary bg-white hover:bg-secondary shadow-sm border border-primary/10'>
-                               <Image src='/images/google-logo.png' alt='Google Logo' width={14} height={14} /> Sign in With Google
+                            <Image src='/images/google-logo.png' alt='Google Logo' width={14} height={14} />  Continue With Google
                             </Button>
 
                             <p className='text-sm text-primary/70'>OR</p>
 
-                            <div className='w-full flex flex-col gap-6'>
+                            <div className='w-full flex flex-col gap-8'>
 
-                                <div className="grid w-full items-center gap-3 my-4">
+                                <div className="grid w-full items-center gap-3 ">
+                                    <Label htmlFor="name">Full Name <address></address></Label>
+                                    <Input type="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} id="name" placeholder="John Doe" className='bg-white h-10 shadow-sm' />
+                                </div>
+                                <div className="grid w-full items-center gap-3 ">
                                     <Label htmlFor="email">Email <address></address></Label>
                                     <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} id="email" placeholder="example123@gmail.com" className='bg-white h-10 shadow-sm' />
                                 </div>
                                 <div className="grid w-full  items-center gap-3">
                                     <Label htmlFor="password">Password</Label>
                                     <Input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} id="password" placeholder="********" className='bg-white h-10 shadow-sm' />
-                                <div className='w-full px-5 text-xs flex justify-end'>
-                                    <Link href='/forget-password' className='text-primary/70 hover:text-primary/90 font-medium'>Forget Password?</Link>
                                 </div>
+                                {/* <div className='w-full px-5 text-sm'>
+                                    <Link href='/forget-password' className='text-primary/70'>Forget Password?</Link>
                                 </div>
-                                <div className='items-center pl-2 flex gap-3'>
+                                <div className='items-center pl-3 flex gap-3'>
                                     <Checkbox id='save' className='border border-primary/20' />
                                     <Label htmlFor='save'>Remember me</Label>
-                                </div>
+                                </div> */}
                             </div>
 
-                            <div className='w-full flex justify-end mb-6 pr-3'>
-                                <Button className='sign-in bg-green-800 hover:bg-green-700 text-secondary'>Sign in</Button>
+                            <div className='w-full flex justify-end my-4 pr-3'>
+                                <Button className='sign-in bg-green-800 hover:bg-green-700 text-secondary'>Sign Up</Button>
                             </div>
                         </form>
                     </div>
                     <div className='w-full px-5 text-sm'>
-                        <p className='text-primary/70'>Not a member? <Link href='/signup' className='text-green-700 hover:font-medium underline-offset-1 underline'>Signup Now</Link></p>
+                        <p className='text-primary/70'>Already have an Account? <Link href='/login' className='text-green-700 hover:font-medium underline-offset-1 underline'>Sign in Now</Link></p>
                     </div>
                 </div>
             </div>
@@ -101,4 +107,4 @@ const LoginPage = () => {
     )
 }
 
-export default LoginPage
+export default SignupPage
