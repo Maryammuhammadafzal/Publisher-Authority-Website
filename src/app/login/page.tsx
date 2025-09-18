@@ -14,10 +14,26 @@ interface LoginForm {
 }
 
 const LoginPage = () => {
+    const [error, setError] = useState<null | string>(null);
     const [formData, setFormData] = useState<LoginForm>({
         email: '',
         password: ''
     })
+
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: formData.email,
+      password: formData.password,
+    });
+
+    if (result?.error) {
+      setError(result?.error);
+    } else {
+      window.location.href = '/dashboard'; // Redirect on success
+    }
+  };
 
     return (
         <div className='w-full min-h-screen flex justify-center bg-primary/10'>
