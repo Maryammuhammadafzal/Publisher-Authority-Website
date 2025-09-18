@@ -1,8 +1,27 @@
 import React from 'react'
 import CallTOAction from './call-to-action'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Footer = () => {
+    const navItem = [
+        {
+            link: '/',
+            name: 'Home'
+        },
+        {
+            link: '/about',
+            name: 'About'
+        },
+        {
+            link: '/how-it-works',
+            name: 'How It Works'
+        },
+        {
+            link: '/contact',
+            name: 'Contact'
+        },
+    ]
     return (
         <div className='w-full h-auto flex justify-center items-center pt-10 pb-6 px-6'>
             <div className='w-full h-auto flex justify-center flex-col gap-6 items-center rounded-4xl bg-primary/10'>
@@ -21,8 +40,10 @@ const Footer = () => {
                             <div className='flex flex-col gap-3 pt-4 mx-auto w-fit'>
                                 <h4 className='text-2xl font-medium'>Quick Links</h4>
 
-                                <ul className='w-auto'>
-                                    <li className='space-y-1'>Home</li>
+                                <ul className='w-auto space-y-1'>
+                                    {navItem.map((item, index) => (
+                                        <li key={index} className='hover:text-green-700'><Link href={item.link}>{item.name}</Link></li>
+                                    ))}
                                 </ul>
                             </div>
                         </div>
