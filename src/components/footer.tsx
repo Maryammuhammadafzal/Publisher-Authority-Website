@@ -17,8 +17,8 @@ const Footer = () => {
 
                             <p className=''>Earn from your blog without overwhelming your audience with ads. Publisher Authority helps you connect with brands, sponsors, and loyal readers — so you can grow with confidence.</p>
                         </div>
-                        <div className="middle w-auto flex justify-center">
-                            <div className='flex flex-col gap-3 pt-4 text-left w-full'>
+                        <div className="middle w-full flex justify-center">
+                            <div className='flex flex-col gap-3 pt-4 mx-auto w-fit'>
                                 <h4 className='text-2xl font-medium'>Quick Links</h4>
 
                                 <ul className='w-auto'>
