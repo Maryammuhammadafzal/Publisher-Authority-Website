@@ -29,11 +29,11 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
+        
         <main className="w-full min-h-screen">
           {children}
         </main>
-        <Footer/>
+      
       </body>
     </html>
   );

@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { Button } from './ui/button'
 import { Menu, X } from 'lucide-react'
+import Link from 'next/link'
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -49,8 +50,16 @@ const Header = () => {
 
                 </div>
                 <div className='buttons flex gap-4'>
-                    <Button className='bg-transparent text-primary border border-primary hover:text-secondary'>Login</Button>
-                    <Button className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:block hidden'>Get Started</Button>
+                    <Button className='bg-transparent text-primary border border-primary hover:text-secondary'>
+                        <Link href='/login'>
+                            Login
+                        </Link>
+                    </Button>
+                    <Button className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:block hidden'>
+                        <Link href='/signup'>
+                            Get Started
+                        </Link>
+                    </Button>
                     <Button onClick={() => setIsOpen(true)} className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:hidden block'><Menu /></Button>
                 </div>
             </div>
