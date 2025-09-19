@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { signIn } from 'next-auth/react';
+import { EyeIcon, EyeOff } from 'lucide-react'
 
 interface SignupForm {
     email: string;
@@ -15,6 +16,7 @@ interface SignupForm {
 }
 
 const SignupPage = () => {
+    const [showPassword, setShowPassword] = useState<Boolean>(false)
     const [error, setError] = useState<null | string>(null);
     const [formData, setFormData] = useState<SignupForm>({
         email: '',
@@ -86,7 +88,13 @@ const SignupPage = () => {
                                 </div>
                                 <div className="grid w-full  items-center gap-3">
                                     <Label htmlFor="password">Password</Label>
-                                    <Input type="password" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} id="password" placeholder="********" className='bg-white h-10 shadow-sm' />
+                                    <div className='relative w-full'>
+                                        <Input type={showPassword ? "text" : "password"} value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} id="password" placeholder="********" className='bg-white h-10 shadow-sm' />
+                                        <div className='absolute top-3 w-fit right-5 cursor-pointer'>
+                                            {showPassword ? <EyeIcon onClick={() => setShowPassword(false)} className='h-4 w-4 text-neutral-900' /> :
+                                                <EyeOff onClick={() => setShowPassword(true)} className='h-4 w-4 text-neutral-500' />}
+                                        </div>
+                                    </div>
                                 </div>
                                 {/* <div className='w-full px-5 text-sm'>
                                     <Link href='/forget-password' className='text-primary/70'>Forget Password?</Link>
