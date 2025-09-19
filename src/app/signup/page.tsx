@@ -37,6 +37,10 @@ const SignupPage = () => {
         // }
 
         if (formData.name && formData.email && formData.password) {
+            localStorage.setItem('name', formData.name)
+            localStorage.setItem('email', formData.email)
+            localStorage.setItem('password', formData.password)
+            localStorage.setItem('isLoggedIn', 'true')
             window.location.href = '/dashboard';
         }
     };
@@ -65,7 +69,7 @@ const SignupPage = () => {
                         <form onSubmit={handleSubmit} className='w-full h-auto flex flex-col items-center gap-6'>
                             {/* Google Button */}
                             <Button className='w-full flex justify-center gap-3 items-center text-center h-10 text-primary bg-white hover:bg-secondary shadow-sm border border-primary/10'>
-                            <Image src='/images/google-logo.png' alt='Google Logo' width={14} height={14} />  Continue With Google
+                                <Image src='/images/google-logo.png' alt='Google Logo' width={14} height={14} />  Continue With Google
                             </Button>
 
                             <p className='text-sm text-primary/70'>OR</p>
