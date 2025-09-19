@@ -178,8 +178,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         <div className='w-full h-full flex justify-between gap-3 md:px-6 px-4 py-1 items-center'>
 
           <div className='w-auto h-auto flex justify-center items-center gap-10'>
-            <div className='logo w-auto h-auto bg-blend-multiply'>
-              <Image src={'/images/logo.png'} alt='Logo' width={120} height={680} className="bg-blend-multiply" />
+            <div className='logo w-auto h-auto'>
+              <Image src={'/images/logo.png'} alt='Logo' width={120} height={680} />
             </div>
             <nav className='h-auto w-auto md:block hidden'>
               <ul className='w-auto h-auto flex lg:gap-8 md:gap-4 items-center'>
