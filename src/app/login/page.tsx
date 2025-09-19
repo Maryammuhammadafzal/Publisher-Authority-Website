@@ -35,6 +35,9 @@ const LoginPage = () => {
         // }
 
         if (formData.email && formData.password) {
+            localStorage.setItem('email', formData.email)
+            localStorage.setItem('password', formData.password)
+            localStorage.setItem('isLoggedIn', 'true')
             window.location.href = '/dashboard';
         }
     };
