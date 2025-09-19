@@ -2,7 +2,7 @@
 import { DashboardLayout } from '@/components/dashboard-layout'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { CheckCircle, Clock, Plus, ShoppingCart } from 'lucide-react'
+import { CheckCircle, Clock, Eye, Pencil, Plus, ShoppingCart, Trash } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -47,9 +47,42 @@ const WebsitesPage = () => {
                 dr: 55,
                 traffic: '1M',
                 status: 'pending',
-                delivery: new Date(),
+                delivery: new Date().toISOString(),
                 currentPrice: 200
-            }
+            },
+            {
+                name: 'Guset Post Now',
+                url: 'https://guestpostnow.io',
+                category: 'General',
+                da: 22,
+                dr: 55,
+                traffic: '1M',
+                status: 'pending',
+                delivery: new Date().toISOString(),
+                currentPrice: 200
+            },
+            {
+                name: 'Guset Post Now',
+                url: 'https://guestpostnow.io',
+                category: 'General',
+                da: 22,
+                dr: 55,
+                traffic: '1M',
+                status: 'pending',
+                delivery: new Date().toISOString(),
+                currentPrice: 200
+            },
+            {
+                name: 'Guset Post Now',
+                url: 'https://guestpostnow.io',
+                category: 'General',
+                da: 22,
+                dr: 55,
+                traffic: '1M',
+                status: 'pending',
+                delivery: new Date().toISOString(),
+                currentPrice: 200
+            },
         ];
 
         setWebsites(webs);
@@ -199,11 +232,18 @@ const WebsitesPage = () => {
         // }
 
         return (
-            <TableBody key={website.name} className="border-b border-primary/10">
+            <TableBody key={website.name} className="border-b h-16 border-primary/10">
                 <TableRow>
                     <TableCell className="font-medium">
                         <div className="flex flex-col gap-1">
                             <h3 className="text-primary font-semibold text-sm leading-tight mb-1">{website.name || "Website"}</h3>
+                            {/* <p className="text-gray-700 flex gap-1 hover:text-primary transition-colors flex-shrink-0 mt-2">
+                                {selectedLinkType === "dofollow" ? "Do Follow" : "No Follow"}
+                            </p> */}
+                        </div>
+                    </TableCell>
+                    <TableCell className="font-medium">
+                        <div className="flex flex-col gap-1">
                             <a
                                 href={website.url || "#"}
                                 target="_blank"
@@ -212,13 +252,21 @@ const WebsitesPage = () => {
                             >
                                 <p className="text-blue-500 text-sm hover:text-blue-400 truncate">{website.url.length > 20 ? website.url.slice(0, 19) + '...' : website.url || ""}</p>
                             </a>
-                            <p className="text-gray-700 flex gap-1 hover:text-primary transition-colors flex-shrink-0 mt-2">
+                            {/* <p className="text-gray-700 flex gap-1 hover:text-primary transition-colors flex-shrink-0 mt-2">
                                 {selectedLinkType === "dofollow" ? "Do Follow" : "No Follow"}
-                            </p>
+                                </p> */}
                         </div>
                     </TableCell>
-                    <TableCell className="text-center">
-                        <p className="text-secondary bg-blue-500 mx-auto w-fit px-3 py-1 rounded-xl text-xs">{website.niche || website.category || "General"}</p>
+                    <TableCell>
+                        <div className="flex gap-1 items-center justify-center text-sm">
+                            {/* {console.log(new Date())} */}
+                            <span className="text-gray-400 flex items-center">
+                                {/* <Clock className="w-3 h-3 mr-1" /> */}
+                                {/* Delivery */}
+                            </span>
+                            
+                            <span className="text-primary">{website.delivery.slice(0,10) || new Date().toLocaleDateString().slice(0,10)}</span>
+                        </div>
                     </TableCell>
                     <TableCell className="text-center space-x-2 text-primary">
                         <div className="flex justify-center gap-1 items-center">
@@ -232,20 +280,14 @@ const WebsitesPage = () => {
                             {website.dr || 0}
                         </div>
                     </TableCell>
-                    <TableCell className="text-center"> <span className="text-primary font-medium">Traffic: {website.traffic || "N/A"}</span></TableCell>
-                    <TableCell>
-                        <div className="flex flex-col gap-1 items-center justify-between text-sm">
-                            <span className="text-gray-400 flex items-center">
-                                <Clock className="w-3 h-3 mr-1" />
-                                Delivery
-                            </span>
-                            <span className="text-primary">{website.delivery || "3-5 days"}</span>
-                        </div>
+                    <TableCell className="text-center"> <span className="text-primary font-medium">{website.traffic || "N/A"}</span></TableCell>
+                    <TableCell className="text-center">
+                        <p className="text-secondary bg-primary mx-auto w-fit px-3 py-1 rounded-xl text-xs">{website.status || website.category || "General"}</p>
                     </TableCell>
-                    <TableCell className="text-right">
+                    <TableCell className="text-center">
                         <div className="text-base font-bold text-blue-500">${(Math.floor(currentPrice) || 0).toLocaleString()}</div></TableCell>
-                    <TableCell className="text-right">
-                        <Button
+                    <TableCell className="text-center flex gap-1 justify-center items-center h-15">
+                        {/* <Button
                             //   onClick={() => handleBuyClick(website, selectedLinkType)}
                             className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
                             size="sm"
@@ -253,7 +295,13 @@ const WebsitesPage = () => {
                         >
                             <ShoppingCart className="w-4 h-4 mr-2" />
                             Buy Now
-                        </Button>
+                        </Button> */}
+
+                       <div className='flex gap-1 justify-center  items-center'>
+                         <Eye className='h-5 w-5'/>
+                        <Pencil className='h-5 w-5'/>
+                        <Trash className='h-5 w-5'/>
+                       </div>
                     </TableCell>
                 </TableRow>
             </TableBody>
@@ -351,14 +399,15 @@ const WebsitesPage = () => {
                                             {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
                                             <TableHeader>
                                                 <TableRow>
-                                                    <TableHead className="w-[200px]">Websites</TableHead>
-                                                    <TableHead className="text-center">Category</TableHead>
-                                                    <TableHead className="text-center">Domain Authority</TableHead>
-                                                    <TableHead className="text-center">Domain Rating</TableHead>
+                                                    <TableHead className="w-[150px]">Websites</TableHead>
+                                                    <TableHead className="w-[150px]">Url</TableHead>
+                                                    <TableHead className="text-center">Date</TableHead>
+                                                    <TableHead className="text-center">DA</TableHead>
+                                                    <TableHead className="text-center">DR</TableHead>
                                                     <TableHead className="text-center">Traffic</TableHead>
-                                                    <TableHead className="w-[150px]">Delivery Time</TableHead>
-                                                    <TableHead className="text-right w-[100px]">Price</TableHead>
-                                                    <TableHead className="text-right">Action</TableHead>
+                                                    <TableHead className="text-center">Status</TableHead>
+                                                    <TableHead className="text-center w-[100px]">Price</TableHead>
+                                                    <TableHead className="text-center">Action</TableHead>
                                                 </TableRow>
                                             </TableHeader>
                                             {filteredWebsites.map((website, index) => (

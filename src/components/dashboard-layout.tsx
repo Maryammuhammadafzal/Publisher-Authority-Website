@@ -65,12 +65,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const router = useRouter()
 
-  const userName = localStorage.getItem('name') as string;
-  const userEmail = localStorage.getItem('email') as string;
-  const userPassword = localStorage.getItem('password') as string;
-
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
   useEffect(() => {
+    const userName = localStorage.getItem('name') as string;
+    const userEmail = localStorage.getItem('email') as string;
+    const userPassword = localStorage.getItem('password') as string;
+  
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
     // Load user data 
     // setIsLoading(true);
     // const fetchUser = async () => {
