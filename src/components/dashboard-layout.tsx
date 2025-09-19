@@ -43,7 +43,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<DashboardUser | null>(null)
   const pathname = usePathname()
   const router = useRouter()
-
+  
+  const userName = localStorage.getItem('name') as string;
+  const userEmail = localStorage.getItem('email') as string;
+  const userPassword = localStorage.getItem('password') as string;
+  
+  const isLoggedIn = localStorage.getItem('isLoggedIn');
   useEffect(() => {
     // Load user data 
     // setIsLoading(true);
@@ -79,16 +84,12 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     // // Load user data
     // fetchUser();
 
-    const userName = localStorage.getItem('name') as string;
-    const userEmail = localStorage.getItem('email') as string;
-    const userPassword = localStorage.getItem('password') as string;
-
-    const userLoggedIn = localStorage.getItem('isLoggedIn');
     if (userLoggedIn && userEmail) {
       setUser({
         ...user, name: userName, email: userEmail, id: userName
       })
     }
+    
 
   }, [])
 
@@ -147,7 +148,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     )
   }
 
-  if (user)
+  // if (user)
     return (
       <div className="min-h-screen relative">
         {/* Mobile sidebar */}
@@ -186,8 +187,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
             </nav>
             <div className="p-4 border-t border-white/10">
               <div className="mb-3">
-                <p className="text-sm font-medium text-white">{user.name}</p>
-                <p className="text-xs text-gray-400">{user.email}</p>
+                <p className="text-sm font-medium text-white">{user?.name || userName}</p>
+                <p className="text-xs text-gray-400">{user?.email || userEmail}</p>
                 {/* <Badge className="mt-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
                   ${Math.abs(parseInt(user.balance))}
                 </Badge> */}
@@ -257,8 +258,8 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
 
             <div className="p-4 border-t border-white/10">
               <div className="mb-3">
-                <p className="text-sm font-medium text-white">{user.name}</p>
-                <p className="text-xs text-gray-400">{user.email}</p>
+                <p className="text-sm font-medium text-white">{user?.name || userName}</p>
+                <p className="text-xs text-gray-400">{user?.email || userEmail}</p>
               </div>
               <div className="flex gap-2">
                 <Button
