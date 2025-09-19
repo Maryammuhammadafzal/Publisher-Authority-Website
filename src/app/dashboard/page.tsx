@@ -1,5 +1,7 @@
 // import { useSession, signIn } from 'next-auth/react';
 
+import { DashboardLayout } from "@/components/dashboard-layout";
+
 export default function Dashboard() {
   // const { data: session, status } = useSession();
 
@@ -13,8 +15,11 @@ export default function Dashboard() {
   // }
 
   return (
-    <div>
-    </div>
+    <DashboardLayout>
+      <div className="w-full h-screen ">
+
+      </div>
+    </DashboardLayout>
   );
 }
 

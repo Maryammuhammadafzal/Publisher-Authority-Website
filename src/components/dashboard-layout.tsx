@@ -18,8 +18,11 @@ import {
   Plus,
   DollarSign,
   PhoneCall,
+  User2,
+  MessageCircleMore,
 } from "lucide-react"
 import { toast } from "sonner"
+import Image from "next/image"
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -37,17 +40,35 @@ interface DashboardUser {
 }
 
 export function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
+  const navItem = [
+    {
+      href: '/dashboard/websites',
+      name: 'Websites'
+    },
+    {
+      href: '/dashboard/payment',
+      name: 'Payments'
+    },
+    {
+      href: '/dashboard/blogs',
+      name: 'Blogs'
+    },
+    {
+      href: '/dashboard/contact',
+      name: 'Contact'
+    },
+  ]
   const [userLoggedIn, setUserLoggedIn] = useState(false)
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState<DashboardUser | null>(null)
   const pathname = usePathname()
   const router = useRouter()
-  
+
   const userName = localStorage.getItem('name') as string;
   const userEmail = localStorage.getItem('email') as string;
   const userPassword = localStorage.getItem('password') as string;
-  
+
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   useEffect(() => {
     // Load user data 
@@ -89,7 +110,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
         ...user, name: userName, email: userEmail, id: userName
       })
     }
-    
+
 
   }, [])
 
@@ -134,9 +155,9 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
     };
   }
 
-  const handleAddFunds = () => {
-    router.push("/dashboard/funds")
-  }
+  // const handleAddFunds = () => {
+  //   router.push("/dashboard/funds")
+  // }
 
   if (isLoading) {
     // console.log('user not found yet');
@@ -149,175 +170,77 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
   }
 
   // if (user)
-    return (
-      <div className="min-h-screen relative">
-        {/* Mobile sidebar */}
-        <div className={`fixed inset-0 bg-gray-900 z-50 lg:hidden ${sidebarOpen ? "block" : "hidden"}`}>
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75" onClick={() => setSidebarOpen(false)} />
-          <div className="fixed inset-y-0 left-0 flex w-64 flex-col bg-gray-900/50 backdrop-blur-xl border-r border-white/10">
-            <div className="flex h-16 items-center justify-between px-4">
-              <h1 className="text-xl font-bold text-white">Welcome</h1>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setSidebarOpen(false)}
-                className="text-white hover:bg-white/10"
-              >
-                <X className="h-5 w-5" />
-              </Button>
-            </div>
-            <nav className="flex-1 space-y-1 px-2 py-4">
-              {navigation.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-                      : "text-gray-300 hover:bg-white/10 hover:text-white"
-                      }`}
-                    onClick={() => setSidebarOpen(false)}
-                  >
-                    <item.icon className="mr-3 h-5 w-5" />
-                    {item.name}
-                  </Link>
-                )
-              })}
-            </nav>
-            <div className="p-4 border-t border-white/10">
-              <div className="mb-3">
-                <p className="text-sm font-medium text-white">{user?.name || userName}</p>
-                <p className="text-xs text-gray-400">{user?.email || userEmail}</p>
-                {/* <Badge className="mt-1 bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
-                  ${Math.abs(parseInt(user.balance))}
-                </Badge> */}
-              </div>
-              <Button
-                onClick={handleLogout}
-                variant="outline"
-                className="w-full border-white/30 text-white hover:bg-white/10 bg-transparent"
-                size="sm"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Button>
-            </div>
-          </div>
-        </div>
+  return (
+    <div className="min-h-screen relative bg-green-50">
 
-        {/* Desktop sidebar */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:flex bg-gray-900 lg:w-64 lg:flex-col">
-          <div className="flex flex-col flex-grow bg-gray-900/50 backdrop-blur-xl border-r border-white/10">
-            <div className="flex items-center h-16 px-4 border-b border-white/10">
-              <h1 className="text-xl font-bold text-white">Dashboard</h1>
+      {/* Header */}
+      <header className="w-full bg-green-50/20 h-[70px] flex justify-center items-center p-3 shadow-md">
+        <div className='w-full h-full flex justify-between gap-3 md:px-6 px-4 py-1 items-center'>
+
+          <div className='w-auto h-auto flex justify-center items-center gap-10'>
+            <div className='logo w-auto h-auto bg-blend-multiply'>
+              <Image src={'/images/logo.png'} alt='Logo' width={120} height={680} className="bg-blend-multiply" />
             </div>
-
-            {/* Balance Card */}
-            <div className="p-4">
-              <Card className="bg-white/5 border-white/10">
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-sm font-medium text-gray-400">Account Balance</span>
-                    <Wallet className="h-4 w-4 text-gray-400" />
-                  </div>
-                  <div className="flex items-center justify-between">
-
-                    {/* <span className="text-2xl font-bold text-white"> ${Math.abs(parseInt(user.balance))}</span> */}
-                    <Button
-                      size="sm"
-                      onClick={handleAddFunds}
-                      className="h-8 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
-                    >
-                      <Plus className="h-3 w-3 mr-1" />
-                      Add
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-
-            <nav className="flex-1 space-y-1 px-2 py-4">
-              {navigation.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className={`group flex items-center px-2 py-2 text-sm font-medium rounded-md ${isActive
-                      ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-                      : "text-gray-300 hover:bg-white/10 hover:text-white"
-                      }`}
-                  >
-                    <item.icon className="mr-3 h-5 w-5" />
-                    {item.name}
-                  </Link>
-                )
-              })}
+            <nav className='h-auto w-auto md:block hidden'>
+              <ul className='w-auto h-auto flex lg:gap-8 md:gap-4 items-center'>
+                {
+                  navItem.map((item, index) => (
+                    <li key={index} className='font-medium text-sm hover:text-green-700 text-primary/70'>
+                      <a href={item.href}>
+                        {item.name}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
             </nav>
 
-            <div className="p-4 border-t border-white/10">
-              <div className="mb-3">
-                <p className="text-sm font-medium text-white">{user?.name || userName}</p>
-                <p className="text-xs text-gray-400">{user?.email || userEmail}</p>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  size="sm"
-                  onClick={handleAddFunds}
-                  className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
-                >
-                  <Plus className="h-3 w-3 mr-1" />
-                  Add Funds
-                </Button>
-                <Button
-                  onClick={handleLogout}
-                  variant="outline"
-                  size="sm"
-                  className="border-white/30 text-white hover:bg-white/10 bg-transparent"
-                >
-                  <LogOut className="h-4 w-4" />
-                </Button>
-              </div>
+          </div>
+          <div className='buttons flex gap-2 items-center'>
+            {/* <Button className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:block hidden'> */}
+            <div className="relative">
+              <Link href='/dashboard/message'>
+              <MessageCircleMore className="h-5 w-6 text-primary/80 font-semibold" />
+              <div className="absolute h-3 w-3 rounded-full bg-green-700 text-white text-[9px] -top-1 right-0 text-center font-semibold">1</div>
+            </Link>
             </div>
+            {/* </Button> */}
+            {/* <Button className='bg-transparent text-primary border border-primary hover:text-secondary'> */}
+            <Link href='/dashboard/profile'>
+            <div className="w-10 h-10 p-1 bg-green-100 flex justify-center items-center rounded-full">
+              {user?.avatar ? <Image src='/images/user-avatar.png' alt="user image" /> :
+                <User2 className="h-5 w-6 text-primary/80 font-semibold" />
+              }
+
+            </div>
+            </Link>
+            {/* </Button> */}
+            <Button onClick={() => setIsOpen(true)} className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:hidden block'><Menu /></Button>
           </div>
         </div>
 
-        {/* Main content */}
-        <div className="lg:pl-64">
-          {/* Mobile header */}
-          <div className="sticky top-0 z-40 flex h-16 items-center gap-x-4 border-b border-primary/20 bg-primary/5 backdrop-blur-xl px-4 shadow-sm lg:hidden">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setSidebarOpen(true)}
-              className="text-primary hover:bg-primary/10"
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-            <div className="flex flex-1 items-center justify-between">
-              <h1 className="text-lg font-semibold text-primary">Dashboard</h1>
-              <div className="flex items-center space-x-2">
-                {/* <Badge className="bg-gradient-to-r from-blue-500 to-cyan-500 text-secondary">
-                  ${Math.abs(balance)}
-                </Badge> */}
-                <Button
-                  size="sm"
-                  onClick={handleAddFunds}
-                  className="bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600 text-white"
-                >
-                  <Plus className="h-3 w-3 mr-1" />
-                  Add Funds
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <main className="py-8">
-            <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">{children}</div>
-          </main>
+        <div className={` ${isOpen ? 'translate-x-135' : 'translate-x-200'} md:hidden block transition-transform space-y-10 duration-500 bg-secondary text-primary shadow-sm sidebar w-50 h-screen absolute top-0 left-0 py-10 px-4`}>
+          <Button onClick={() => setIsOpen(false)} className='hover:bg-transparent hover:border hover:border-primary hover:text-primary md:hidden block'><X /></Button>
+          <nav className='h-full flex w-auto'>
+            <ul className='w-auto h-auto flex flex-col gap-4'>
+              {
+                navItem.map((item, index) => (
+                  <li key={index} className='font-medium hover:text-green-700'>
+                    <a href={item.href}>
+                      {item.name}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+          </nav>
         </div>
-      </div>
-    )
+      </header>
+
+      <main className="py-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 w-full">{children}</div>
+      </main>
+    </div>
+  )
 }
 
